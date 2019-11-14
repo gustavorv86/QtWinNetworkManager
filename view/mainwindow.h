@@ -8,8 +8,8 @@
 #include <QPushButton>
 #include <iostream>
 
-#include <dialogsaveas.h>
-#include <network.h>
+#include "dialogsaveas.h"
+#include "utils/network.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,11 +24,17 @@ public:
 	MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
 
+private slots:
+	void on_checkBoxDhcp_stateChanged(int arg1);
+
+	void on_pushButtonSave_clicked();
+
+	void on_pushButtonApply_clicked();
+
 private:
 	Ui::MainWindow *ui;
 	void addEvents(void);
 
-private slots:
 	void handlePushButtonApply(void);
 	void handlePushButtonSave(void);
 	void handleCheckBoxDhcp(bool);

@@ -16,19 +16,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    dialogsaveas.cpp \
     main.cpp \
-    mainwindow.cpp \
-    network.cpp
+    model/networkprofile.cpp \
+    model/networkprofilelist.cpp \
+    utils/network.cpp \
+	view/dialogdhcpsaveas.cpp \
+    view/dialogsaveas.cpp \
+    view/mainwindow.cpp \
+
 
 HEADERS += \
-    dialogsaveas.h \
-    mainwindow.h \
-    network.h
+    model/networkprofile.h \
+    model/networkprofilelist.h \
+    utils/network.h \
+	view/dialogdhcpsaveas.h \
+    view/dialogsaveas.h \
+    view/mainwindow.h \
+
 
 FORMS += \
-    dialogsaveas.ui \
-    mainwindow.ui
+    ui/dialogdhcpsaveas.ui \
+    ui/dialogsaveas.ui \
+    ui/mainwindow.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

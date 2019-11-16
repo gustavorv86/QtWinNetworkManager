@@ -3,6 +3,9 @@
 
 #include <QDialog>
 #include <QMap>
+#include <QMessageBox>
+
+#include "model/networkprofile.h"
 
 namespace Ui {
 class DialogSaveAs;
@@ -12,10 +15,11 @@ class DialogSaveAs : public QDialog {
 	Q_OBJECT
 
 public:
-	DialogSaveAs(QWidget * parent, const QString & name, const QMap<QString, QString> & map);
+	DialogSaveAs(QWidget * parent, const QMap<QString, QString> & map);
 	~DialogSaveAs();
 
 	bool getExitStatus();
+	NetworkProfile getNetworkProfile();
 
 private:
 	Ui::DialogSaveAs *ui;
@@ -24,6 +28,7 @@ private:
 private slots:
 	void on_pushButtonOk_clicked();
 	void on_pushButtonCancel_clicked();
+	void on_checkBoxDhcp_stateChanged(int arg1);
 };
 
 #endif // DIALOGSAVEAS_H

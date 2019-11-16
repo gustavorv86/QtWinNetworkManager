@@ -9,15 +9,17 @@ NetworkProfile::NetworkProfile() {
 	this->dns2 = "";
 	this->dhcp = true;
 }
-NetworkProfile::NetworkProfile(const QString & name, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2) {
+
+NetworkProfile::NetworkProfile(const QString & name, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2, bool dhcp) {
 	this->name = name;
 	this->ipAddr = ipAddr;
 	this->netmask = netmask;
 	this->gateway = gateway;
 	this->dns1 = dns1;
 	this->dns2 = dns2;
-	this->dhcp = false;
+	this->dhcp = dhcp;
 }
+
 NetworkProfile::NetworkProfile(const QMap<QString, QString> & map) {
 	this->name = map["name"];
 	this->ipAddr = map["ipAddr"];
@@ -25,7 +27,7 @@ NetworkProfile::NetworkProfile(const QMap<QString, QString> & map) {
 	this->gateway = map["gateway"];
 	this->dns1 = map["dns1"];
 	this->dns2 = map["dns2"];
-	this->dhcp = false;
+	this->dhcp = map["dhcp"] == "true" ? true : false;
 }
 
 const QString & NetworkProfile::getName(void) const {

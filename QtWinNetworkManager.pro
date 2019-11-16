@@ -18,24 +18,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     model/networkprofile.cpp \
-    model/networkprofilelist.cpp \
+	model/networkprofilemap.cpp \
     utils/network.cpp \
-	view/dialogdhcpsaveas.cpp \
     view/dialogsaveas.cpp \
     view/mainwindow.cpp \
 
 
 HEADERS += \
     model/networkprofile.h \
-    model/networkprofilelist.h \
+	model/networkprofilemap.h \
     utils/network.h \
-	view/dialogdhcpsaveas.h \
     view/dialogsaveas.h \
     view/mainwindow.h \
 
 
 FORMS += \
-    ui/dialogdhcpsaveas.ui \
     ui/dialogsaveas.ui \
     ui/mainwindow.ui
 

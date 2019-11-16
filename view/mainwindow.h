@@ -10,6 +10,7 @@
 
 #include "dialogsaveas.h"
 #include "utils/network.h"
+#include "model/networkprofilemap.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,23 +22,26 @@ class MainWindow : public QMainWindow {
 	Q_OBJECT
 
 public:
-	MainWindow(QWidget *parent = nullptr);
+	static const QString DEFAULT_CONFIG_FILE;
+
+	MainWindow(QWidget * parent = nullptr);
 	~MainWindow();
 
 private slots:
-	void on_checkBoxDhcp_stateChanged(int arg1);
-
+	void on_checkBoxDhcp_stateChanged(int arg);
 	void on_pushButtonSave_clicked();
-
 	void on_pushButtonApply_clicked();
+	void on_listWidgetNetworks_itemSelectionChanged();
+	void on_pushButtonDelete_clicked();
 
 private:
-	Ui::MainWindow *ui;
-	void addEvents(void);
+	Ui::MainWindow * ui;
+	NetworkProfileMap networkMap;
 
-	void handlePushButtonApply(void);
-	void handlePushButtonSave(void);
-	void handleCheckBoxDhcp(bool);
+	void reloadList(void);
+	QString getSelectedTextList(void);
+	void onLoad(void);
+	void onExit(void);
 
 };
 

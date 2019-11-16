@@ -16,7 +16,7 @@ private:
 
 public:
 	NetworkProfile();
-	NetworkProfile(const QString & name, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2);
+	NetworkProfile(const QString & name, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2, bool dhcp);
 	NetworkProfile(const QMap<QString, QString> & map);
 
 	const QString & getName(void) const;

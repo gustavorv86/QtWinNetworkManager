@@ -15,14 +15,18 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::onLoad() {
-	networkMap.readJSON(DEFAULT_CONFIG_FILE);
-	foreach (const QString & profileName, networkMap.getKeys()) {
-		this->ui->listWidgetNetworks->addItem(profileName);
+	bool readOk = mapNetworkProfile.readJSON(DEFAULT_CONFIG_FILE);
+	if(readOk) {
+		foreach (const QString & profileName, mapNetworkProfile.getKeys()) {
+			this->ui->listWidgetNetworks->addItem(profileName);
+		}
+	} else {
+		QMessageBox::warning(nullptr, "Warning", "Cannot open read file");
 	}
 }
 
 void MainWindow::onExit() {
-	networkMap.writeJSON(DEFAULT_CONFIG_FILE);
+	mapNetworkProfile.writeJSON(DEFAULT_CONFIG_FILE);
 }
 
 void MainWindow::on_checkBoxDhcp_stateChanged(int arg) {
@@ -38,7 +42,7 @@ void MainWindow::on_checkBoxDhcp_stateChanged(int arg) {
 void MainWindow::on_pushButtonSave_clicked() {
 	QMap<QString, QString> cfgMap;
 
-	QString name = this->getSelectedTextList();
+	QString name = this->listWidgetNetworksGetSelectedText();
 	if(name.isEmpty()) {
 		name = "default";
 	}
@@ -58,25 +62,34 @@ void MainWindow::on_pushButtonSave_clicked() {
 
 	if(dialogSaveAs.getExitStatus()) {
 		NetworkProfile profile = dialogSaveAs.getNetworkProfile();
-		this->networkMap.put(profile);
-		this->reloadList();
+		this->mapNetworkProfile.put(profile);
+		this->listWidgetNetworksUpdate();
 	}
 }
 
-void MainWindow::reloadList(void) {
+void MainWindow::listWidgetNetworksUpdate(void) {
 	this->ui->listWidgetNetworks->clear();
-	foreach(const QString & profileName, this->networkMap.getKeys()) {
+	foreach(const QString & profileName, this->mapNetworkProfile.getKeys()) {
 		this->ui->listWidgetNetworks->addItem(profileName);
 	}
 }
 
-QString MainWindow::getSelectedTextList(void) {
+QString MainWindow::listWidgetNetworksGetSelectedText(void) {
 	QList<QListWidgetItem *> allSelection = this->ui->listWidgetNetworks->selectedItems();
 	if(allSelection.count() > 0) {
 		QListWidgetItem * item = allSelection.last();
 		return item->text();
 	}
 	return "";
+}
+
+void MainWindow::setNetworkProfileValues(NetworkProfile profile) {
+	this->ui->lineEditAddress->setText(profile.getIpAddr());
+	this->ui->lineEditNetmask->setText(profile.getNetmask());
+	this->ui->lineEditGateway->setText(profile.getGateway());
+	this->ui->lineEditDns1->setText(profile.getDns1());
+	this->ui->lineEditDns2->setText(profile.getDns2());
+	this->ui->checkBoxDhcp->setChecked(profile.isDhcp());
 }
 
 void MainWindow::on_pushButtonApply_clicked() {
@@ -100,12 +113,19 @@ void MainWindow::on_pushButtonApply_clicked() {
 }
 
 void MainWindow::on_listWidgetNetworks_itemSelectionChanged() {
-	QList<QListWidgetItem *> allSelection = this->ui->listWidgetNetworks->selectedItems();
-	if(allSelection.count() > 0) {
-
+	QString profileName = listWidgetNetworksGetSelectedText();
+	if(!profileName.isEmpty()) {
+		NetworkProfile profile = this->mapNetworkProfile.get(profileName);
+		setNetworkProfileValues(profile);
 	}
 }
 
 void MainWindow::on_pushButtonDelete_clicked() {
-
+	QString profileName = listWidgetNetworksGetSelectedText();
+	if(!profileName.isEmpty()) {
+		this->mapNetworkProfile.remove(profileName);
+		this->listWidgetNetworksUpdate();
+	} else {
+		QMessageBox::information(this, "Information", "Please, select a profile to delete");
+	}
 }

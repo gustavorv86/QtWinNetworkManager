@@ -65,8 +65,9 @@ NetworkProfile DialogSaveAs::getNetworkProfile() {
 	QString gateway = this->ui->lineEditGateway->text();
 	QString dns1 = this->ui->lineEditDns1->text();
 	QString dns2 = this->ui->lineEditDns2->text();
+	bool dhcp = this->ui->checkBoxDhcp->isChecked();
 
-	NetworkProfile retNetworkProfile(name, ipAddr, netmask, gateway, dns1, dns2, false);
+	NetworkProfile retNetworkProfile(name, ipAddr, netmask, gateway, dns1, dns2, dhcp);
 	return retNetworkProfile;
 }
 

@@ -12,6 +12,10 @@ NetworkProfile & NetworkProfileMap::get(const QString & key) {
 	return this->mapProfiles[key];
 }
 
+int NetworkProfileMap::remove(const QString & key) {
+	return this->mapProfiles.remove(key);
+}
+
 QList<QString> NetworkProfileMap::getKeys(void) const {
 	return this->mapProfiles.keys();
 }
@@ -20,7 +24,7 @@ QList<NetworkProfile> NetworkProfileMap::getValues(void) const {
 	return this->mapProfiles.values();
 }
 
-void NetworkProfileMap::writeJSON(const QString & filename) const {
+bool NetworkProfileMap::writeJSON(const QString & filename) const {
 
 	QJsonObject jParent;
 	foreach(const NetworkProfile & profile, this->mapProfiles) {
@@ -43,15 +47,17 @@ void NetworkProfileMap::writeJSON(const QString & filename) const {
 	if (file.open(QIODevice::WriteOnly)) {
 		file.write(jDoc.toJson());
 		file.close();
+		return true;
 	}
+
+	return false;
 }
 
-void NetworkProfileMap::readJSON(const QString & filename) {
+bool NetworkProfileMap::readJSON(const QString & filename) {
 	QFile file(filename);
 	if(file.exists()) {
 		if (!file.open(QIODevice::ReadOnly)) {
-			QMessageBox::warning(nullptr, "Warning", "Cannot open read file");
-			return;
+			return false;
 		}
 
 		QByteArray saveData = file.readAll();
@@ -77,4 +83,6 @@ void NetworkProfileMap::readJSON(const QString & filename) {
 			this->mapProfiles[name] = newNetworkProfile;
 		}
 	}
+
+	return true;
 }

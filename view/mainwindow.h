@@ -36,10 +36,13 @@ private slots:
 
 private:
 	Ui::MainWindow * ui;
-	NetworkProfileMap networkMap;
+	NetworkProfileMap mapNetworkProfile;
 
-	void reloadList(void);
-	QString getSelectedTextList(void);
+	void setNetworkProfileValues(NetworkProfile profile);
+
+	void listWidgetNetworksUpdate(void);
+	QString listWidgetNetworksGetSelectedText(void);
+
 	void onLoad(void);
 	void onExit(void);
 

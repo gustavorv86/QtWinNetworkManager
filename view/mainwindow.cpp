@@ -23,6 +23,15 @@ void MainWindow::onLoad() {
 	} else {
 		QMessageBox::warning(nullptr, "Warning", "Cannot open read file");
 	}
+
+    Network network;
+
+    QStringList interfaces = network.getInterfaces();
+
+    foreach(QString interface, interfaces) {
+        this->ui->comboBoxInterfaces->addItem(interface);
+    }
+
 }
 
 void MainWindow::onExit() {

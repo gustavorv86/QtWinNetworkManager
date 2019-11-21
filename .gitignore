@@ -42,6 +42,8 @@ target_wrapper.*
 # QtCreator CMake
 CMakeLists.txt.user*
 
+# Other files
+dist/config.json
 dist/output.txt
 dist/error.txt
 

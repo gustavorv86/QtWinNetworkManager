@@ -1,6 +1,7 @@
 #ifndef DIALOGSAVEAS_H
 #define DIALOGSAVEAS_H
 
+#include <QDebug>
 #include <QDialog>
 #include <QMap>
 #include <QMessageBox>
@@ -15,7 +16,7 @@ class DialogSaveAs : public QDialog {
 	Q_OBJECT
 
 public:
-	DialogSaveAs(QWidget * parent, const QMap<QString, QString> & map);
+    DialogSaveAs(QWidget * parent, const QStringList & listInterfaces, const QString & selectedInterface, const QMap<QString, QString> & map);
 	~DialogSaveAs();
 
 	bool getExitStatus();

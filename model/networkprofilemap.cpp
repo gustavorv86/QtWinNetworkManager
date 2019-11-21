@@ -30,6 +30,7 @@ bool NetworkProfileMap::writeJSON(const QString & filename) const {
 	foreach(const NetworkProfile & profile, this->mapProfiles) {
 		QJsonObject jChild;
 
+        jChild["interface"] = profile.getInterface();
 		jChild["ipAddr"] = profile.getIpAddr();
 		jChild["netmask"] = profile.getNetmask();
 		jChild["gateway"] = profile.getGateway();
@@ -56,32 +57,39 @@ bool NetworkProfileMap::writeJSON(const QString & filename) const {
 bool NetworkProfileMap::readJSON(const QString & filename) {
 	QFile file(filename);
 	if(file.exists()) {
-		if (!file.open(QIODevice::ReadOnly)) {
-			return false;
-		}
 
-		QByteArray saveData = file.readAll();
-		file.close();
+        try {
 
-		QJsonDocument jDoc(QJsonDocument::fromJson(saveData));
+            file.open(QIODevice::ReadOnly);
+            QByteArray saveData = file.readAll();
+            file.close();
 
-		QJsonObject jParent = jDoc.object();
+            QJsonDocument jDoc(QJsonDocument::fromJson(saveData));
 
-		QStringList keys = jParent.keys();
-		foreach(const QString & key, keys) {
-			QJsonObject jChild = jParent[key].toObject();
+            QJsonObject jParent = jDoc.object();
 
-			const QString & ipAddr = jChild["ipAddr"].toString();
-			const QString & netmask = jChild["netmask"].toString();
-			const QString & gateway = jChild["gateway"].toString();
-			const QString & dns1 = jChild["dns1"].toString();
-			const QString & dns2 = jChild["dns2"].toString();
-			bool dhcp = jChild["dhcp"].toBool();
+            QStringList keys = jParent.keys();
+            foreach(const QString & key, keys) {
+                QJsonObject jChild = jParent[key].toObject();
 
-			NetworkProfile newNetworkProfile(key, ipAddr, netmask, gateway, dns1, dns2, dhcp);
-			QString name = newNetworkProfile.getName();
-			this->mapProfiles[name] = newNetworkProfile;
-		}
+                const QString & interface = jChild["interface"].toString();
+                const QString & ipAddr = jChild["ipAddr"].toString();
+                const QString & netmask = jChild["netmask"].toString();
+                const QString & gateway = jChild["gateway"].toString();
+                const QString & dns1 = jChild["dns1"].toString();
+                const QString & dns2 = jChild["dns2"].toString();
+                bool dhcp = jChild["dhcp"].toBool();
+
+                NetworkProfile newNetworkProfile(key, interface, ipAddr, netmask, gateway, dns1, dns2, dhcp);
+                QString name = newNetworkProfile.getName();
+                this->mapProfiles[name] = newNetworkProfile;
+            }
+
+        } catch(...) {
+            qWarning() << "Error reading file " << filename;
+            return false;
+        }
+
 	}
 
 	return true;

@@ -1,10 +1,19 @@
 #include "dialogsaveas.h"
 #include "ui_dialogsaveas.h"
 
-DialogSaveAs::DialogSaveAs(QWidget * parent, const QMap<QString, QString> & map) : QDialog(parent), ui(new Ui::DialogSaveAs) {
+DialogSaveAs::DialogSaveAs(QWidget * parent, const QStringList & listInterfaces, const QString & selectedInterface, const QMap<QString, QString> & map) : QDialog(parent), ui(new Ui::DialogSaveAs) {
 	ui->setupUi(this);
 
 	this->exitStatus = false;
+
+    foreach(const QString & interface, listInterfaces) {
+        this->ui->comboBoxInterfaces->addItem(interface);
+    }
+    if(listInterfaces.contains(selectedInterface)) {
+        this->ui->comboBoxInterfaces->setCurrentText(selectedInterface);
+    } else {
+        qWarning() << "The interface " << selectedInterface << " does not exists";
+    }
 
 	this->ui->lineEditName->setText("default");
 	if(map.contains("name")) {
@@ -60,6 +69,7 @@ bool DialogSaveAs::getExitStatus() {
 
 NetworkProfile DialogSaveAs::getNetworkProfile() {
 	QString name = this->ui->lineEditName->text();
+    QString interface = this->ui->comboBoxInterfaces->currentText();
 	QString ipAddr = this->ui->lineEditAddress->text();
 	QString netmask = this->ui->lineEditNetmask->text();
 	QString gateway = this->ui->lineEditGateway->text();
@@ -67,7 +77,7 @@ NetworkProfile DialogSaveAs::getNetworkProfile() {
 	QString dns2 = this->ui->lineEditDns2->text();
 	bool dhcp = this->ui->checkBoxDhcp->isChecked();
 
-	NetworkProfile retNetworkProfile(name, ipAddr, netmask, gateway, dns1, dns2, dhcp);
+    NetworkProfile retNetworkProfile(name, interface, ipAddr, netmask, gateway, dns1, dns2, dhcp);
 	return retNetworkProfile;
 }
 

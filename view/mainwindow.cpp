@@ -24,10 +24,7 @@ void MainWindow::onLoad() {
 		QMessageBox::warning(nullptr, "Warning", "Cannot open read file");
 	}
 
-    Network network;
-
-    QStringList interfaces = network.getInterfaces();
-
+    QStringList interfaces = this->network.getInterfaces();
     foreach(QString interface, interfaces) {
         this->ui->comboBoxInterfaces->addItem(interface);
     }
@@ -66,7 +63,9 @@ void MainWindow::on_pushButtonSave_clicked() {
 		cfgMap["dhcp"] = "true";
 	}
 
-	DialogSaveAs dialogSaveAs(this, cfgMap);
+    QStringList listInterfaces = this->network.getInterfaces();
+    QString selectedInterface = comboBoxInterfacesGetSelectedText();
+    DialogSaveAs dialogSaveAs(this, listInterfaces, selectedInterface, cfgMap);
 	dialogSaveAs.exec();
 
 	if(dialogSaveAs.getExitStatus()) {
@@ -74,6 +73,10 @@ void MainWindow::on_pushButtonSave_clicked() {
 		this->mapNetworkProfile.put(profile);
 		this->listWidgetNetworksUpdate();
 	}
+}
+
+QString MainWindow::comboBoxInterfacesGetSelectedText(void) {
+    return this->ui->comboBoxInterfaces->currentText();
 }
 
 void MainWindow::listWidgetNetworksUpdate(void) {
@@ -93,6 +96,7 @@ QString MainWindow::listWidgetNetworksGetSelectedText(void) {
 }
 
 void MainWindow::setNetworkProfileValues(NetworkProfile profile) {
+    this->ui->comboBoxInterfaces->setCurrentText(profile.getInterface());
 	this->ui->lineEditAddress->setText(profile.getIpAddr());
 	this->ui->lineEditNetmask->setText(profile.getNetmask());
 	this->ui->lineEditGateway->setText(profile.getGateway());
@@ -102,10 +106,11 @@ void MainWindow::setNetworkProfileValues(NetworkProfile profile) {
 }
 
 void MainWindow::on_pushButtonApply_clicked() {
-	Network net("Ethernet");
+    QString interface = this->comboBoxInterfacesGetSelectedText();
+    this->network.setInterface(interface);
 
 	if(this->ui->checkBoxDhcp->isChecked()) {
-		net.dhcp();
+        this->network.dhcp();
 	} else {
 		QString ipAddr = this->ui->lineEditAddress->text();
 		QString netmask = this->ui->lineEditNetmask->text();
@@ -113,7 +118,7 @@ void MainWindow::on_pushButtonApply_clicked() {
 		QString dns1 = this->ui->lineEditDns1->text();
 		QString dns2 = this->ui->lineEditDns2->text();
 
-		net.staticConfig(ipAddr, netmask, gateway, dns1, dns2);
+        this->network.staticConfig(ipAddr, netmask, gateway, dns1, dns2);
 	}
 
 	QMessageBox messageBox;

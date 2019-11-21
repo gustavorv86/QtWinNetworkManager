@@ -138,7 +138,7 @@ void Network::staticConfig(QString ip, QString netmask, QString gateway, QString
     QString outputStr;
     QString errorStr;
 
-    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip set address \"" + this->selectInterface + "\" static " + ip + " " + netmask + + " " + gateway + " 1>> output.txt 2>> error.txt";
+    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip set address \"" + this->selectInterface + "\" static " + ip + " " + netmask + + " " + gateway + "";
 	proc.start(cmd);
 	proc.waitForFinished();
 
@@ -148,7 +148,7 @@ void Network::staticConfig(QString ip, QString netmask, QString gateway, QString
     outputFile.write(outputStr.toUtf8());
     errorFile.write(errorStr.toUtf8());
 
-    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip delete dns \"" + this->selectInterface + "\" all 1>> output.txt 2>> error.txt";
+    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip delete dns \"" + this->selectInterface + "\"";
 	proc.start(cmd);
 	proc.waitForFinished();
 
@@ -158,7 +158,7 @@ void Network::staticConfig(QString ip, QString netmask, QString gateway, QString
     outputFile.write(outputStr.toUtf8());
     errorFile.write(errorStr.toUtf8());
 
-    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip add dns \"" + this->selectInterface + "\" addr=\"" + dns1 + "\" 1>> output.txt 2>> error.txt";
+    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip add dns \"" + this->selectInterface + "\" addr=\"" + dns1 + "\"";
 	proc.start(cmd);
 	proc.waitForFinished();
 
@@ -168,7 +168,7 @@ void Network::staticConfig(QString ip, QString netmask, QString gateway, QString
     outputFile.write(outputStr.toUtf8());
     errorFile.write(errorStr.toUtf8());
 
-    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip add dns \"" + this->selectInterface + "\" addr=\"" + dns2 + "\" 1>> output.txt 2>> error.txt";
+    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip add dns \"" + this->selectInterface + "\" addr=\"" + dns2 + "\"";
 	proc.start(cmd);
 	proc.waitForFinished();
 

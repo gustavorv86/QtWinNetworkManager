@@ -7,6 +7,7 @@
 class NetworkProfile {
 private:
 	QString name;
+    QString interface;
 	QString ipAddr;
 	QString netmask;
 	QString gateway;
@@ -16,10 +17,11 @@ private:
 
 public:
 	NetworkProfile();
-	NetworkProfile(const QString & name, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2, bool dhcp);
+    NetworkProfile(const QString & name, const QString & interface, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2, bool dhcp);
 	NetworkProfile(const QMap<QString, QString> & map);
 
 	const QString & getName(void) const;
+    const QString & getInterface(void) const;
 	const QString & getIpAddr(void) const;
 	const QString & getNetmask(void) const;
 	const QString & getGateway(void) const;
@@ -28,6 +30,7 @@ public:
 	bool isDhcp(void) const;
 
 	void setName(const QString & name);
+    void setInterface(const QString & name);
 	void setIpAddr(const QString & ipAddr);
 	void setNetmask(const QString & netmask);
 	void setGateway(const QString & gateway);

@@ -37,15 +37,16 @@ private slots:
 private:
 	Ui::MainWindow * ui;
 	NetworkProfileMap mapNetworkProfile;
+    Network network;
 
 	void setNetworkProfileValues(NetworkProfile profile);
 
+    QString comboBoxInterfacesGetSelectedText(void);
 	void listWidgetNetworksUpdate(void);
 	QString listWidgetNetworksGetSelectedText(void);
 
 	void onLoad(void);
 	void onExit(void);
-
 };
 
 #endif // MAINWINDOW_H

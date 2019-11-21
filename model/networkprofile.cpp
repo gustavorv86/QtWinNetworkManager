@@ -10,8 +10,9 @@ NetworkProfile::NetworkProfile() {
 	this->dhcp = true;
 }
 
-NetworkProfile::NetworkProfile(const QString & name, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2, bool dhcp) {
+NetworkProfile::NetworkProfile(const QString & name, const QString & interface, const QString & ipAddr, const QString & netmask, const QString & gateway, const QString & dns1, const QString & dns2, bool dhcp) {
 	this->name = name;
+    this->interface = interface;
 	this->ipAddr = ipAddr;
 	this->netmask = netmask;
 	this->gateway = gateway;
@@ -22,7 +23,8 @@ NetworkProfile::NetworkProfile(const QString & name, const QString & ipAddr, con
 
 NetworkProfile::NetworkProfile(const QMap<QString, QString> & map) {
 	this->name = map["name"];
-	this->ipAddr = map["ipAddr"];
+    this->interface = map["interface"];
+    this->ipAddr = map["ipAddr"];
 	this->netmask = map["netmask"];
 	this->gateway = map["gateway"];
 	this->dns1 = map["dns1"];
@@ -32,6 +34,10 @@ NetworkProfile::NetworkProfile(const QMap<QString, QString> & map) {
 
 const QString & NetworkProfile::getName(void) const {
 	return this->name;
+}
+
+const QString & NetworkProfile::getInterface(void) const {
+    return this->interface;
 }
 
 const QString & NetworkProfile::getIpAddr(void) const {
@@ -60,6 +66,10 @@ bool NetworkProfile::isDhcp(void) const {
 
 void NetworkProfile::setName(const QString & name) {
 	this->name = name;
+}
+
+void NetworkProfile::setInterface(const QString & interface) {
+    this->interface = interface;
 }
 
 void NetworkProfile::setIpAddr(const QString & ipAddr) {

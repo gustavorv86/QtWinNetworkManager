@@ -2,6 +2,7 @@
 #define NETWORKPROFILEMAP_H
 
 #include <QByteArray>
+#include <QDebug>
 #include <QFile>
 #include <QMap>
 #include <QJsonDocument>

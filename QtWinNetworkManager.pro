@@ -19,6 +19,7 @@ SOURCES += \
     main.cpp \
     model/networkprofile.cpp \
 	model/networkprofilemap.cpp \
+    utils/logger.cpp \
     utils/network.cpp \
     view/dialogsaveas.cpp \
     view/mainwindow.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 HEADERS += \
     model/networkprofile.h \
 	model/networkprofilemap.h \
+    utils/logger.h \
     utils/network.h \
     view/dialogsaveas.h \
     view/mainwindow.h \

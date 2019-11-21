@@ -12,7 +12,7 @@ DialogSaveAs::DialogSaveAs(QWidget * parent, const QStringList & listInterfaces,
     if(listInterfaces.contains(selectedInterface)) {
         this->ui->comboBoxInterfaces->setCurrentText(selectedInterface);
     } else {
-        qWarning() << "The interface " << selectedInterface << " does not exists";
+        Logger::getInstance().warning("The interface " + selectedInterface + " does not exists");
     }
 
 	this->ui->lineEditName->setText("default");

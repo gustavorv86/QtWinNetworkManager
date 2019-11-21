@@ -2,13 +2,14 @@
 #define NETWORKPROFILEMAP_H
 
 #include <QByteArray>
-#include <QDebug>
 #include <QFile>
 #include <QMap>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QString>
+
+#include "utils/logger.h"
 #include "networkprofile.h"
 
 class NetworkProfileMap {

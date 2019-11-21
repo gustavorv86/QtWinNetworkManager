@@ -1,12 +1,12 @@
 #ifndef DIALOGSAVEAS_H
 #define DIALOGSAVEAS_H
 
-#include <QDebug>
 #include <QDialog>
 #include <QMap>
 #include <QMessageBox>
 
 #include "model/networkprofile.h"
+#include "utils/logger.h"
 
 namespace Ui {
 class DialogSaveAs;

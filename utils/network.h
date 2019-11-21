@@ -1,10 +1,11 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include <QDebug>
 #include <QFile>
 #include <QString>
 #include <QProcess>
+
+#include "utils/logger.h"
 
 class Network {
 private:

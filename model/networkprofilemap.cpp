@@ -86,7 +86,7 @@ bool NetworkProfileMap::readJSON(const QString & filename) {
             }
 
         } catch(...) {
-            qWarning() << "Error reading file " << filename;
+            Logger::getInstance().warning("Error reading file " + filename);
             return false;
         }
 

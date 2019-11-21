@@ -8,9 +8,10 @@
 #include <QPushButton>
 #include <iostream>
 
-#include "dialogsaveas.h"
-#include "utils/network.h"
+#include "view/dialogsaveas.h"
 #include "model/networkprofilemap.h"
+#include "utils/logger.h"
+#include "utils/network.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

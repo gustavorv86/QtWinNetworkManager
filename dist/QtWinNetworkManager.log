@@ -1,0 +1,38 @@
+21.11.2019 22:51:24 [INFORMATION] Start application...
+21.11.2019 22:51:24 [INFORMATION] Open file config.json as read only
+21.11.2019 22:51:26 [INFORMATION] Open file config.json as write only
+21.11.2019 22:51:26 [INFORMATION] Exit application, good bye!
+21.11.2019 22:51:34 [INFORMATION] Start application...
+21.11.2019 22:51:34 [INFORMATION] Open file config.json as read only
+21.11.2019 22:51:45 [INFORMATION] Open file config.json as write only
+21.11.2019 22:51:45 [INFORMATION] Exit application, good bye!
+21.11.2019 22:51:52 [INFORMATION] Start application...
+21.11.2019 22:51:52 [INFORMATION] Open file config.json as read only
+21.11.2019 22:52:01 [INFORMATION] Open file config.json as write only
+21.11.2019 22:52:01 [INFORMATION] Exit application, good bye!
+21.11.2019 22:52:10 [INFORMATION] Start application...
+21.11.2019 22:52:11 [INFORMATION] Open file config.json as read only
+21.11.2019 22:52:18 [INFORMATION] List networks selection changed: default_class_C
+21.11.2019 22:52:19 [INFORMATION] List networks selection changed: default_class_b
+21.11.2019 22:52:20 [INFORMATION] List networks selection changed: default_class_C
+21.11.2019 22:52:21 [INFORMATION] Button Delete selection clicked: default_class_C
+21.11.2019 22:52:21 [INFORMATION] List networks selection changed: 
+21.11.2019 22:52:22 [INFORMATION] List networks selection changed: default_class_b
+21.11.2019 22:52:23 [INFORMATION] Button Delete selection clicked: default_class_b
+21.11.2019 22:52:23 [INFORMATION] List networks selection changed: 
+21.11.2019 22:52:24 [INFORMATION] Open file config.json as write only
+21.11.2019 22:52:24 [INFORMATION] Exit application, good bye!
+21.11.2019 22:52:44 [INFORMATION] Start application...
+21.11.2019 22:52:44 [INFORMATION] Open file config.json as read only
+21.11.2019 22:52:49 [INFORMATION] Button Apply clicked
+21.11.2019 22:52:49 [INFORMATION] Combobox interface selection: Ethernet
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip set address "Ethernet" static 192.168.1.100 255.255.255.0 192.168.1.1 [STDOUT]: 
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip set address "Ethernet" static 192.168.1.100 255.255.255.0 192.168.1.1 [STDERR]: 
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip delete dns "Ethernet" all [STDOUT]: No hay ning�n servidor de nombres de dominio (DNS) configurado en este equipo.
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip delete dns "Ethernet" all [STDERR]: 
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip add dns "Ethernet" addr="1.1.1.1" [STDOUT]: El servidor DNS configurado es incorrecto o no existe.
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip add dns "Ethernet" addr="1.1.1.1" [STDERR]: 
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip add dns "Ethernet" addr="1.0.0.1" [STDOUT]: El servidor DNS configurado es incorrecto o no existe.
+21.11.2019 22:52:50 [INFORMATION] c:\Windows\System32\cmd.exe /c c:\Windows\System32\netsh.exe interface ip add dns "Ethernet" addr="1.0.0.1" [STDERR]: 
+21.11.2019 22:52:52 [INFORMATION] Open file config.json as write only
+21.11.2019 22:52:52 [INFORMATION] Exit application, good bye!

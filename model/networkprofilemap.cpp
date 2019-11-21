@@ -5,7 +5,8 @@ NetworkProfileMap::NetworkProfileMap() {
 }
 
 void NetworkProfileMap::put(NetworkProfile profile) {
-	this->mapProfiles[profile.getName()] = profile;
+	QString profileName = profile.getName();
+	this->mapProfiles[profileName] = profile;
 }
 
 NetworkProfile & NetworkProfileMap::get(const QString & key) {
@@ -25,7 +26,6 @@ QList<NetworkProfile> NetworkProfileMap::getValues(void) const {
 }
 
 bool NetworkProfileMap::writeJSON(const QString & filename) const {
-
 	QJsonObject jParent;
 	foreach(const NetworkProfile & profile, this->mapProfiles) {
 		QJsonObject jChild;
@@ -45,13 +45,15 @@ bool NetworkProfileMap::writeJSON(const QString & filename) const {
 	QJsonDocument jDoc(jParent);
 
 	QFile file(filename);
+	Logger::getInstance().info("Open file " + filename + " as write only");
 	if (file.open(QIODevice::WriteOnly)) {
 		file.write(jDoc.toJson());
 		file.close();
 		return true;
+	} else {
+		Logger::getInstance().warning("Error writting file " + filename);
+		return false;
 	}
-
-	return false;
 }
 
 bool NetworkProfileMap::readJSON(const QString & filename) {
@@ -59,6 +61,7 @@ bool NetworkProfileMap::readJSON(const QString & filename) {
 	if(file.exists()) {
 
         try {
+			Logger::getInstance().info("Open file " + filename + " as read only");
 
             file.open(QIODevice::ReadOnly);
             QByteArray saveData = file.readAll();

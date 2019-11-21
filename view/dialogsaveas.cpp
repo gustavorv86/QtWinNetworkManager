@@ -2,6 +2,7 @@
 #include "ui_dialogsaveas.h"
 
 DialogSaveAs::DialogSaveAs(QWidget * parent, const QStringList & listInterfaces, const QString & selectedInterface, const QMap<QString, QString> & map) : QDialog(parent), ui(new Ui::DialogSaveAs) {
+	Logger::getInstance().info("Loading Save as dialog");
 	ui->setupUi(this);
 
 	this->exitStatus = false;
@@ -47,20 +48,7 @@ DialogSaveAs::DialogSaveAs(QWidget * parent, const QStringList & listInterfaces,
 
 DialogSaveAs::~DialogSaveAs() {
 	delete ui;
-}
-
-void DialogSaveAs::on_pushButtonOk_clicked() {
-	if(this->ui->lineEditName->text().isEmpty()) {
-		QMessageBox::warning(nullptr, "Warning", "The field name cannot be empty");
-	} else {
-		this->exitStatus = true;
-		this->close();
-	}
-}
-
-void DialogSaveAs::on_pushButtonCancel_clicked() {
-	this->exitStatus = false;
-	this->close();
+	Logger::getInstance().info("Closed Save as dialog");
 }
 
 bool DialogSaveAs::getExitStatus() {
@@ -81,7 +69,25 @@ NetworkProfile DialogSaveAs::getNetworkProfile() {
 	return retNetworkProfile;
 }
 
+void DialogSaveAs::on_pushButtonOk_clicked() {
+	Logger::getInstance().info("Button Ok clicked");
+	if(this->ui->lineEditName->text().isEmpty()) {
+		QMessageBox::warning(this, "Warning", "The field name cannot be empty");
+	} else {
+		this->exitStatus = true;
+		this->close();
+	}
+}
+
+void DialogSaveAs::on_pushButtonCancel_clicked() {
+	Logger::getInstance().info("Button Cancel clicked");
+	this->exitStatus = false;
+	this->close();
+}
+
 void DialogSaveAs::on_checkBoxDhcp_stateChanged(int arg) {
+	Logger::getInstance().info("Checkbox DHCP state changed: " + QString::number(arg));
+
 	bool enable = arg == 0;
 
 	this->ui->lineEditAddress->setEnabled(enable);

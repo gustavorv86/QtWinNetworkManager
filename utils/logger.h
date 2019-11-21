@@ -10,10 +10,12 @@
 class Logger {
 private:
     const static QStringList LEVEL_NAMES;
+	const static int NUMBER_OF_BACKUPS = 3;
 
     int logLevel;
     QFile * file;
 
+	void moveFile(const QString & source, const QString & destination);
     void write(const QString & message, int logLevel);
 
 public:

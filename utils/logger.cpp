@@ -7,8 +7,28 @@ Logger::Logger() {
     this->file = nullptr;
 }
 
+void Logger::moveFile(const QString & source, const QString & destination) {
+	if(QFile::exists(destination)) {
+		QFile::remove(destination);
+	}
+	QFile::rename(source, destination);
+}
+
 void Logger::setLogFile(const QString & filename) {
     if (!filename.isEmpty()) {
+
+		for(int i=NUMBER_OF_BACKUPS; i>0; i--) {
+			QString fOrig(filename + "." + QString::number(i-1));
+			QString fDest(filename + "." + QString::number(i));
+			if(QFile::exists(fOrig)) {
+				this->moveFile(fOrig, fDest);
+			}
+		}
+
+		if(QFile::exists(filename)) {
+			this->moveFile(filename, filename + ".1);
+		}
+
         file = new QFile;
         file->setFileName(filename);
         file->open(QIODevice::Append | QIODevice::Text);

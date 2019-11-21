@@ -54,7 +54,7 @@ void Network::setInterface(int index) {
     if(0 <= index && index < this->listInterfaces.size()) {
         this->selectInterface = this->listInterfaces[index];
     } else {
-        Logger::getInstance().warning("Invalid index interface " + QString(index));
+		Logger::getInstance().warning("Invalid index interface " + QString::number(index));
     }
 }
 
@@ -85,8 +85,8 @@ void Network::dhcp() const {
     outputStr = proc.readAllStandardOutput();
     errorStr = proc.readAllStandardError();
 
-    Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8());
-    Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8());
+	Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8().trimmed());
+	Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8().trimmed());
 
     cmd = Network::CMD + " /c " + Network::NETSH + " interface ip set dnsservers \"" + this->selectInterface + "\" source=dhcp";
 	proc.start(cmd);
@@ -95,8 +95,8 @@ void Network::dhcp() const {
     outputStr = proc.readAllStandardOutput();
     errorStr = proc.readAllStandardError();
 
-    Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8());
-    Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8());
+	Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8().trimmed());
+	Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8().trimmed());
 }
 
 void Network::staticConfig(QString ip, QString netmask, QString gateway, QString dns1, QString dns2) const {
@@ -118,18 +118,18 @@ void Network::staticConfig(QString ip, QString netmask, QString gateway, QString
     outputStr = proc.readAllStandardOutput();
     errorStr = proc.readAllStandardError();
 
-    Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8());
-    Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8());
+	Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8().trimmed());
+	Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8().trimmed());
 
-    cmd = Network::CMD + " /c " + Network::NETSH + " interface ip delete dns \"" + this->selectInterface + "\"";
+	cmd = Network::CMD + " /c " + Network::NETSH + " interface ip delete dns \"" + this->selectInterface + "\" all";
 	proc.start(cmd);
 	proc.waitForFinished();
 
     outputStr = proc.readAllStandardOutput();
     errorStr = proc.readAllStandardError();
 
-    Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8());
-    Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8());
+	Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8().trimmed());
+	Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8().trimmed());
 
     cmd = Network::CMD + " /c " + Network::NETSH + " interface ip add dns \"" + this->selectInterface + "\" addr=\"" + dns1 + "\"";
 	proc.start(cmd);
@@ -138,8 +138,8 @@ void Network::staticConfig(QString ip, QString netmask, QString gateway, QString
     outputStr = proc.readAllStandardOutput();
     errorStr = proc.readAllStandardError();
 
-    Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8());
-    Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8());
+	Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8().trimmed());
+	Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8().trimmed());
 
     cmd = Network::CMD + " /c " + Network::NETSH + " interface ip add dns \"" + this->selectInterface + "\" addr=\"" + dns2 + "\"";
 	proc.start(cmd);
@@ -148,6 +148,6 @@ void Network::staticConfig(QString ip, QString netmask, QString gateway, QString
     outputStr = proc.readAllStandardOutput();
     errorStr = proc.readAllStandardError();
 
-    Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8());
-    Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8());
+	Logger::getInstance().info(cmd + " [STDOUT]: " + outputStr.toUtf8().trimmed());
+	Logger::getInstance().info(cmd + " [STDERR]: " + errorStr.toUtf8().trimmed());
 }
